@@ -1,22 +1,24 @@
-import { HttpService } from '@nestjs/axios';
+
 import { Injectable } from '@nestjs/common';
-import { PokeResponse, Result } from './interfaces/poke-response.interface';
+import { PokeResponse } from './interfaces/poke-response.interface';
 import { Pokemon } from 'src/pokemon/entities/pokemon.entity';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { fetchAdapter } from 'src/common/adapters/fetch.adapter';
 
 @Injectable()
 export class SeedService {
 
   constructor(
     @InjectModel(Pokemon.name)
-      private readonly pokemonModel: Model<Pokemon>
+      private readonly pokemonModel: Model<Pokemon>,
+      private readonly http: fetchAdapter
   ){}
 
   async executeSeed(){
     await this.pokemonModel.deleteMany({});
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=200`, {})
-    const data: PokeResponse = await res.json() 
+    const data = await this.http.get<PokeResponse>(`https://pokeapi.co/api/v2/pokemon?limit=200`)
+    
 
     // Alternativa para insertar pokemons por lotes en la base de datos
     // const inserPromisesArray:Promise<any>[] = [];
@@ -29,6 +31,7 @@ export class SeedService {
     //   )
     // })
     // await Promise.all(inserPromisesArray)
+    
 
     const pokemonToInsert: {name: string, no: number}[] = []
 
