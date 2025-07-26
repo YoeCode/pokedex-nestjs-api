@@ -70,7 +70,7 @@ constructor(
     // const result = await this.pokemonModel.findByIdAndDelete(id)
     const {deletedCount} = await this.pokemonModel.deleteOne({_id: id})
     if (deletedCount === 0 ) {
-      throw new BadRequestException(`Pokemon with id ${ id } not found.`);
+      throw new NotFoundException(`Pokemon with id ${ id } not found.`);
     }
     return
   }
