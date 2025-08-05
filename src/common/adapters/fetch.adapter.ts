@@ -9,7 +9,7 @@ export class fetchAdapter implements Httpadapter{
             const data = await response.json();
             return data as T;
         } catch (error) {
-            throw new Error(`This is an error = Check logs`);
+            throw new Error(`This is an error: Check logs`);
         }
     }
 
