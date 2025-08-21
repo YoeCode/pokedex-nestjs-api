@@ -22,7 +22,15 @@ docker-compose up -d
 ```
 http://localhost:3000/api/v2/seed
 ```
+6. Clonar archivo __.env.template__ y renombrar la copia a __.env__
 
+7. Llenar las variables de entonrno definidas en el __.env__
+
+8. Ejecutar la aplicación en dev: 
+
+```
+npm run start:dev
+```
 
 
 ## Stack usado
