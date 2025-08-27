@@ -33,7 +33,16 @@ npm run start:dev
 ```
 
 
+
 ## Stack usado
 
 * MongoDB
 * Nest
+
+# Build de producción
+1. Crear el archivo ```.env.prod```
+2. Rellenar las variables de entorno en prod
+3. Crear la nueva imagen
+```
+docker compose -f docker-compose.prod.yaml --env-file .env.prod up --build
+```
